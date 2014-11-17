@@ -29,7 +29,7 @@ Both will output a clone of the file used to hide data in the same directory
 ### Retrieve hidden data
 In order to retrieve a hidden message just specified the "-f" or "--find" flag:
 
-`$ ./HideMeIn [file_with_hidden_data]`
+`$ ./HideMeIn [file_with_hidden_data] -f`
 
 It will automatically detect wether it's a string or a file and the type of the file itself.
 Will output the file / text hidden
