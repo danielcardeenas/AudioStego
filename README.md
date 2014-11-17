@@ -27,7 +27,7 @@ Or if you want to hide a string on it
 Both will output a clone of the file used to hide data in the same directory
 
 ### Retrieve hidden data
-In order to retrieve a hidden message just specified the "-f" or "--find" flag:
+In order to retrieve a hidden message just set the "-f" or "--find" flag:
 
 `$ ./HideMeIn [file_with_hidden_data] -f`
 
