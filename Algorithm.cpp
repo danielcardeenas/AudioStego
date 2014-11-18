@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "Algorithm.h"
 
 using namespace std;
@@ -14,12 +13,12 @@ int PlayWithWaveBuffer(vector<char>& buffer, string& msg, string& inputExt)
     msg += end;
 
     // How many times the buffer is bigger than the message
-    long modulus = ((buffer.size() - WAV_HEADER ) / (msg.size() + MY_HEADER));
+    long modulus = ((buffer.size() - WAV_HEADER - START_SPACE) / (msg.size() + MY_HEADER));
 
     cout << "Spreading level: " << modulus << endl;
 
     // Verify if it is safe to hide the message. Must me at must half the size of the space avaible
-    if(modulus <= 2)
+    if(modulus <= 3)
     {
         cout << "The message might be to big for the audio file" << endl;
         return ERROR;
@@ -31,7 +30,7 @@ int PlayWithWaveBuffer(vector<char>& buffer, string& msg, string& inputExt)
     int pos = 0;
 
     // Write my custom header first (Spread)
-    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER;
+    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + START_SPACE;
          it != buffer.end(); ++it)
     {
         if (n % MY_HEADER_MODULE == 0)
@@ -57,7 +56,7 @@ int PlayWithWaveBuffer(vector<char>& buffer, string& msg, string& inputExt)
     int j = 0;
     pos = 0;
     // Since the actual data of the wav starts at byte 44. Everything above is just header things that we don't care atm
-    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + n + MY_HEADER_MODULE;
+    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + n + MY_HEADER_MODULE + START_SPACE;
          it != buffer.end(); ++it)
     {
         if (j % modulus == 0)
@@ -85,6 +84,12 @@ int PlayWithWaveBuffer(vector<char>& buffer, vector<char>& msgBuffer, string& fi
     char* modulusBytes = new char[4] {0}; // Max number of modulus in bytes
     char* customHeader = new char[MY_HEADER] {0}; // Custom header
 
+    if (buffer.size()/4 <= msgBuffer.size())
+    {
+        cout << "The message might be to big for the audio file" << endl;
+        return ERROR;
+    }
+
     msgBuffer.push_back('@');
     msgBuffer.push_back('<');
     msgBuffer.push_back(';');
@@ -92,12 +97,12 @@ int PlayWithWaveBuffer(vector<char>& buffer, vector<char>& msgBuffer, string& fi
 
     // How many times the buffer is bigger than the message
     // buffer.size() - (HEADER SIZE = 44 bytes) - (My own tags to de hidden file = 3 bytes)
-    long modulus = ((buffer.size() - WAV_HEADER ) / (msgBuffer.size() + MY_HEADER));
+    long modulus = ((buffer.size() - WAV_HEADER - START_SPACE) / (msgBuffer.size() + MY_HEADER));
 
     cout << "Spreading level: " << modulus << endl;
 
     // Verify if it is safe to hide the message. Must me at must half the size of the space avaible
-    if(modulus <= 2)
+    if(modulus <= 3)
     {
         cout << "The message might be to big for the audio file" << endl;
         return ERROR;
@@ -109,7 +114,7 @@ int PlayWithWaveBuffer(vector<char>& buffer, vector<char>& msgBuffer, string& fi
     int pos = 0;
 
     // Write my custom header first (Spread)
-    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER;
+    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + START_SPACE;
          it != buffer.end(); ++it)
     {
         if (n % MY_HEADER_MODULE == 0)
@@ -134,7 +139,7 @@ int PlayWithWaveBuffer(vector<char>& buffer, vector<char>& msgBuffer, string& fi
 
     int j = 0;
     pos = 0;
-    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + n + MY_HEADER_MODULE;
+    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + n + MY_HEADER_MODULE + START_SPACE;
          it != buffer.end(); ++it)
     {
         if (j % modulus == 0)
@@ -168,10 +173,9 @@ int FindHiddenMessage(vector<char>& buffer)
 
     int n = 0;
     int pos = 0;
-    vector<char>::iterator tempIterator;
     cout << "Looking for the hidden message..." << endl;
     // Since the actual data of the wav starts at byte 44 we start from it. Everything above is just header things that we don't care atm
-    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER;
+    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + START_SPACE;
          it != buffer.end(); ++it)
     {
         if (n % MY_HEADER_MODULE == 0)
@@ -223,7 +227,7 @@ int FindHiddenTextInWave(vector<char>& buffer, CustomHeader& customHeader)
     int pos = 0;
     vector<char>::iterator tempIterator;
     // Since the actual data of the wav starts at byte 44. Everything above is just header things that we don't care atm
-    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + lastPos + MY_HEADER_MODULE;
+    for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + lastPos + MY_HEADER_MODULE + START_SPACE;
          it != buffer.end(); ++it)
     {
         if (n % modulus == 0)
@@ -232,17 +236,17 @@ int FindHiddenTextInWave(vector<char>& buffer, CustomHeader& customHeader)
             {
                 // @
                 //Setting the iterator to the next possible position
-                tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + lastPos + modulus;
+                tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + START_SPACE + lastPos + modulus;
 
                 if (*tempIterator == 60) {
                     //<
                     //Setting the iterator to the next possible position
-                    tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + lastPos + (2* modulus);
+                    tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + START_SPACE + lastPos + (2* modulus);
 
                     if (*tempIterator == 59) {
                         // ;
                         // Setting the iterator to next possible flag
-                        tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + lastPos + (3 * modulus);
+                        tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + START_SPACE + lastPos + (3 * modulus);
 
                         if (*tempIterator == 59){
                             // End of message reached
@@ -281,7 +285,7 @@ int FindHiddenBinaryInWave(vector<char>& buffer, CustomHeader& customHeader)
     int pos = 0;
     vector<char>::iterator tempIterator;
     // Since the actual data of the wav starts at byte 44. Everything above is just header things that we don't care atm
-    for (vector<char>::iterator it = buffer.begin() + + WAV_HEADER + lastPos + MY_HEADER_MODULE;
+    for (vector<char>::iterator it = buffer.begin() + + WAV_HEADER + lastPos + MY_HEADER_MODULE + START_SPACE;
          it != buffer.end(); ++it)
     {
         if (n % modulus == 0)
@@ -290,17 +294,17 @@ int FindHiddenBinaryInWave(vector<char>& buffer, CustomHeader& customHeader)
             {
                 // @
                 //Setting the iterator to the next possible position
-                tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + lastPos + modulus;
+                tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + START_SPACE + lastPos + modulus;
 
                 if (*tempIterator == 60) {
                     //<
                     //Setting the iterator to the next possible position
-                    tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + lastPos + (2* modulus);
+                    tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + START_SPACE + lastPos + (2* modulus);
 
                     if (*tempIterator == 59) {
                         // ;
                         // Setting the iterator to next possible flag
-                        tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + lastPos + (3 * modulus);
+                        tempIterator = buffer.begin() + n + 44 + MY_HEADER_MODULE + START_SPACE + lastPos + (3 * modulus);
 
                         if (*tempIterator == 59){
                             // End of message reached
@@ -397,7 +401,7 @@ void CreateHeader(long& modulus, char* modulusBytes, char* customHeader, string&
 
     // If modulus is lesser than the max int value of 4 bytes assign it.
     // Otherwise, set a flag to use DEF_MODULE constant
-    if (!(modulus > 42946729))
+    if (modulus <= 42946729)
         modulusBytes = reinterpret_cast<char*>(&modulus);
     else
         modulusBytes[0] = DEF_MODULE;

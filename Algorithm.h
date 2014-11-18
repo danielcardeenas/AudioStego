@@ -7,6 +7,7 @@
 #define DEF_MODULE 64 // The bigger the module, the more spread(?) the message
 #define WAV_HEADER 44
 #define MY_HEADER_MODULE 64
+#define START_SPACE 100 // Space skipped in order to dont put a message at the starts of the songs
 /**
 * My custom header with the attributes of the file to retireve:
 * 4 bytes for modulus value

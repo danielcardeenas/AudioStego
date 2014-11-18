@@ -5,11 +5,9 @@
 using namespace std;
 
 int main(int argc, char* argv[])
-
 {
     string msg;
     string inputPath;
-    string temp;
     string fileExt, inputExt;
 
     ifstream binStremFile;
@@ -47,21 +45,21 @@ int main(int argc, char* argv[])
         * */
 
         inputPath = argv[1];
-        temp = argv[2];
         if(string(argv[2]) == "-f" || string(argv[2]) == "--find")
         {
-            // Find the hidden message
+            // Find the hidden message mode
             mode = 2;
         }
         else{
+            // User wants to hide data then
             // Decide whether is a string or a file
             if (string(argv[2])[0] == 39 && string(argv[2]).back() == 39)
             {
-                // String message detected
+                // Quotation marks detected. Hide string message
                 mode = 1;
                 msg = string(argv[2]);
 
-                // Get files extension
+                // Get input file extension
                 inputExt = GetFileExtension(string(argv[1]));
             }
             else {
@@ -78,12 +76,14 @@ int main(int argc, char* argv[])
             }
         }
     }
-    else if (argc == 4){
-        /**
-        * When only the song path and the (message or flag) are passed.
-        * In case mode is passsed, find hidden message
-        * @param: song, message/flag
-        * */
+    else{
+        cout << "Too much argumments maybe? " << endl;
+
+        cout << "To hide a string:  ./HideMeIn [input_file] \"'string message'\" (Single quotation inside double quotation)" << endl;
+        cout << "To hide a file:    ./HideMeIn [input_file] [file_to_hide]" << endl;
+        cout << endl;
+        cout << "To retrieve something already hidden:   ./HideMeIn [file_with_hidden_data] -f" << endl;
+        return 0;
     }
 
     cout << "Doing it boss! " << endl;
