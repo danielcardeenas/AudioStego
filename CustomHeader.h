@@ -1,5 +1,5 @@
 // guard header
-#ifndef __USTOMHEADER_H_INCLUDED__
+#ifndef __CUSTOMHEADER_H_INCLUDED__
 #define __CUSTOMHEADER_H_INCLUDED__
 
 class CustomHeader {
