@@ -18,4 +18,4 @@ public:
     void SetLastPosition(int n);
 };
 
-#endif // __USTOMHEADER_H_INCLUDED__
+#endif // __cUSTOMHEADER_H_INCLUDED__
