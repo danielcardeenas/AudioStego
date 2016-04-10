@@ -13,7 +13,7 @@ I recommend using [Cmake](http://www.cmake.org/install/) to build since it's eas
 1. `[AudioStego]$ mkdir build`
 2. `[AudioStego]$ cd build`
 3. `[AudioStego/build]$ cmake ..`
-4. `[AudioStego/build]$ make ..`
+4. `[AudioStego/build]$ make`
 
 And there's should be a file named "HideMeIn"
 
