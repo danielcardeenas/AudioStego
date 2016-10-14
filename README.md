@@ -16,8 +16,7 @@ I recommend using [Cmake](http://www.cmake.org/install/) to build since it's eas
 4. `[AudioStego/build]$ make`
 
 And there's should be a file named "HideMeIn"
-
-*Note: Boost libraries need to be installed to compile*
+**Note: Boost libraries need to be installed to compile**
 
 How to use
 ==========
@@ -29,7 +28,7 @@ In order to hide a file inside another file
 
 Or if you want to hide a string on it
 
-`$ ./HideMeIn [file_used_to_hide_data] "'Message to hide'"` (Note the simple quotation inside double quotes)
+`$ ./HideMeIn [file_used_to_hide_data] "'Message to hide'"` **(Note the simple quotation inside double quotes)**
 
 Both will output a clone of the file used to hide data in the same directory
 
