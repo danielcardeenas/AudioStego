@@ -16,6 +16,7 @@ I recommend using [Cmake](http://www.cmake.org/install/) to build since it's eas
 4. `[AudioStego/build]$ make`
 
 And there's should be a file named "HideMeIn"
+
 **Note: Boost libraries need to be installed to compile**
 
 How to use
