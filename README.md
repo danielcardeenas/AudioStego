@@ -28,13 +28,18 @@ How to use
 ### Hiding data
 In order to hide a file inside another file
 
-`$ ./HideMeIn [file_used_to_hide_data] [file_to_hide]`
+```sh
+$ ./HideMeIn file_used_to_hide_data file_to_hide
+```
 
 Or if you want to hide a string on it
 
-`$ ./HideMeIn [file_used_to_hide_data] "'Message to hide'"` **(Notice the simple quotation inside double quotes)**
+```sh
+$ ./HideMeIn file_used_to_hide_data "'Message to hide'"
+``` 
+**(Notice the simple quotation inside double quotes)**
 
-Both will output a clone of the file used to hide data in the same directory
+Both will output a clone of the file with the hidden data as `output.(file extension)`
 
 ### Retrieving hidden data
 In order to retrieve a hidden message just set the "-f" or "--find" flag:
@@ -42,4 +47,5 @@ In order to retrieve a hidden message just set the "-f" or "--find" flag:
 `$ ./HideMeIn [file_with_hidden_data] -f`
 
 It will automatically detect wether it's a string or a file and the type of the file itself.
-Will output the file / text hidden
++ If it's a file, it will create it as `output.(file extension)`
++ If it's a string message, it will print it on the console/terminal
