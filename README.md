@@ -8,14 +8,17 @@ It actually supports only .mp3 and .wav files as inputs, but you can hide whatev
 
 Build
 ==========
-I recommend using [Cmake](http://www.cmake.org/install/) to build since it's easy and quick
+This shit needs [CMake](http://www.cmake.org/install/) to build. So download it before compiling. 
 
-1. `[AudioStego]$ mkdir build`
-2. `[AudioStego]$ cd build`
-3. `[AudioStego/build]$ cmake ..`
-4. `[AudioStego/build]$ make`
-
-And there's should be a file named "HideMeIn"
+```sh
+$ git clone https://github.com/danielcardeenas/AudioStego.git
+$ cd AudioStego
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+And there should be a file named `HideMeIn`
 
 **Note: Boost libraries need to be installed to compile**
 
@@ -29,11 +32,11 @@ In order to hide a file inside another file
 
 Or if you want to hide a string on it
 
-`$ ./HideMeIn [file_used_to_hide_data] "'Message to hide'"` **(Note the simple quotation inside double quotes)**
+`$ ./HideMeIn [file_used_to_hide_data] "'Message to hide'"` **(Notice the simple quotation inside double quotes)**
 
 Both will output a clone of the file used to hide data in the same directory
 
-### Retrieve hidden data
+### Retrieving hidden data
 In order to retrieve a hidden message just set the "-f" or "--find" flag:
 
 `$ ./HideMeIn [file_with_hidden_data] -f`
