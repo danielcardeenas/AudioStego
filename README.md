@@ -44,7 +44,9 @@ Both will output a clone of the file with the hidden data as `output.(file exten
 ### Retrieving hidden data
 In order to retrieve a hidden message just set the "-f" or "--find" flag:
 
-`$ ./HideMeIn [file_with_hidden_data] -f`
+```sh
+$ ./HideMeIn [file_with_hidden_data] -f
+```
 
 It will automatically detect wether it's a string or a file and the type of the file itself.
 + If it's a file, it will create it as `output.(file extension)`
