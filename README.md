@@ -11,12 +11,12 @@ Build
 This shit needs [CMake](http://www.cmake.org/install/) to build. So download it before compiling. 
 
 ```sh
-$ git clone https://github.com/danielcardeenas/AudioStego.git
-$ cd AudioStego
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
+> git clone https://github.com/danielcardeenas/AudioStego.git
+> cd AudioStego
+> mkdir build
+> cd build
+> cmake ..
+> make
 ```
 And there should be a file named `HideMeIn`
 
@@ -35,7 +35,7 @@ $ ./HideMeIn file_used_to_hide_data file_to_hide
 Or if you want to hide a string on it
 
 ```sh
-$ ./HideMeIn file_used_to_hide_data "'Message to hide'"
+> ./HideMeIn file_used_to_hide_data "'Message to hide'"
 ``` 
 **(Notice the simple quotation inside double quotes)**
 
@@ -45,7 +45,7 @@ Both will output a clone of the file with the hidden data as `output.(file exten
 In order to retrieve a hidden message just set the "-f" or "--find" flag:
 
 ```sh
-$ ./HideMeIn [file_with_hidden_data] -f
+> ./HideMeIn [file_with_hidden_data] -f
 ```
 
 It will automatically detect wether it's a string or a file and the type of the file itself.
