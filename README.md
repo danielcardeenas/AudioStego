@@ -29,7 +29,7 @@ How to use
 In order to hide a file inside another file
 
 ```sh
-$ ./hideme file_used_to_hide_data file_to_hide
+> ./hideme file_used_to_hide_data file_to_hide
 ```
 
 Or if you want to hide a string on it
