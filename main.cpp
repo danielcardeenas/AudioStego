@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
 	else if (argc == 3){
 	    /**
 	    * When only the song path and the (message or flag) are passed.
-	    * In case mode is passsed, find hidden message
+	    * In case mode is passed, find hidden message
 	    * @param: song, message/flag
 	    * */
 
