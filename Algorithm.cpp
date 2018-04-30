@@ -28,7 +28,7 @@ void CreateHeader(char*			_customHeader,
 	for (int i = 0; i < STEP_SIZE; i++)
 		_customHeader[i] = step.Bytes[i];
 
-	int counter = 0;
+	size_t counter = 0;
 	for (int i = 4; i < 8; i++)
 	{
 		if (_fileExtension.size() > counter)
@@ -75,7 +75,7 @@ void WriteBody(vector<char>&	_buffer,
 	vector<char>::iterator it = _buffer.begin() + WAV_HEADER + HEADER_STEP + START_SPACE + HEADER_SIZEOF;
 
 	int j = 0;
-	int pos = 0;
+	size_t pos = 0;
 	for (it; it != _buffer.end(); ++it)
 	{
 		if (j % _step == 0)
@@ -217,7 +217,7 @@ int RetrieveData(vector<char>& _buffer)
 	{
 		cout << "String detected. Retrieving it..." << endl;
 		cout << "Message:" << endl;
-		for (int i = 0; i < data.size(); i++)
+		for (size_t i = 0; i < data.size(); i++)
 		{
 			cout << data[i];
 		}

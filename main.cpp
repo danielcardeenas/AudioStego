@@ -2,7 +2,7 @@
 #include "Algorithm.h"
 #include "Utils.h"
 
-void EncodeMessage(string inputPath, string msg)
+void EncodeMessage(const string& inputPath, const string& msg)
 {
 	string	inputExt		= GetFileExtension(string(inputPath));
 	bool	isBinaryFile	= false;
@@ -31,7 +31,7 @@ void EncodeMessage(string inputPath, string msg)
 	return ;
 }
 
-void EncodeFile(string inputPath, string fileToEncodePath)
+void EncodeFile(const string& inputPath, const string& fileToEncodePath)
 {
 	string	inputExt			= GetFileExtension(string(inputPath));
 	string	fileExt				= GetFileExtension(string(fileToEncodePath));
@@ -69,7 +69,7 @@ void EncodeFile(string inputPath, string fileToEncodePath)
 	return;
 }
 
-void DecodeFile(string inputPath)
+void DecodeFile(const string& inputPath)
 {
 	string inputExt		= GetFileExtension(string(inputPath));
 
