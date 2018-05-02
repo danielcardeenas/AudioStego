@@ -1,21 +1,17 @@
-// guard header
-#ifndef __CUSTOMHEADER_H_INCLUDED__
-#define __CUSTOMHEADER_H_INCLUDED__
+#pragma once
 
-class CustomHeader {
-    int mModulus;
-    std::string mExtension;
-    char mType;
-    int mLastPos = 0;
+class CustomHeader
+{
 public:
-    CustomHeader(char* header);
-    CustomHeader();
-    int GetModulus();
-    std::string GetExtension();
-    char GetType();
-    int GetLastPosition();
+	CustomHeader(char* header);
+	CustomHeader()	= default;
 
-    void SetLastPosition(int n);
+	int		Step();
+	string	Extension();
+	char	Type();
+
+protected:
+	int		step;
+	string	extension;
+	char	type;
 };
-
-#endif // __cUSTOMHEADER_H_INCLUDED__

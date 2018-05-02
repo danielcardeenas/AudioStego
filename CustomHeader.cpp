@@ -1,51 +1,40 @@
-#include <string>
-#include <boost/algorithm/string.hpp>
+#include "stdafx.h"
 #include "CustomHeader.h"
 
-CustomHeader::CustomHeader(char* header) {
-    // Set modulus first
-    char* bytes = new char[4];
-    for (int i = 0; i < 4; i++)
-        bytes[i] = header[i];
+CustomHeader::CustomHeader(char* header)
+{
+	char* bytes = new char[4];
+	for (int i = 0; i < 4; i++)
+	{
+		bytes[i] = header[i];
+	}
+	step = *reinterpret_cast<int*>(bytes);
+	delete[] bytes;
 
-    mModulus = *reinterpret_cast<int*>(bytes);
-
-    // Set extension
-    char* ext = new char[4];
-    for (int y = 0, i = 4; i < 8; i++, y++)
-        ext[y] = header[i];
-
-    mExtension = std::string(ext);
-    boost::algorithm::trim(mExtension);
-
-    // Set type
-    mType = header[8];
-
-    delete[] bytes;
-    delete[] ext;
+	vector<char> ext;
+	for (int i = 4; i < 8; i++)
+	{
+		if (header[i] == ' ')
+		{
+			break;
+		}
+		ext.push_back(header[i]);
+	}
+	extension = string(ext.begin(), ext.end());
+	type = header[8];
 }
 
-CustomHeader::CustomHeader() {
-    // Initialize the variables
-    return;
+int CustomHeader::Step()
+{
+	return step;
 }
 
-int CustomHeader::GetModulus() {
-    return this->mModulus;
+string CustomHeader::Extension()
+{
+	return extension;
 }
 
-std::string CustomHeader::GetExtension() {
-    return this->mExtension;
-}
-
-char CustomHeader::GetType() {
-    return this->mType;
-}
-
-int CustomHeader::GetLastPosition() {
-    return this->mLastPos;
-}
-
-void CustomHeader::SetLastPosition(int n) {
-    this->mLastPos = n;
+char CustomHeader::Type()
+{
+	return type;
 }
