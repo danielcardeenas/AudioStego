@@ -11,6 +11,7 @@ Build
 This shit needs [CMake](http://www.cmake.org/install/) to build. So download it before compiling. 
 
 ```sh
+> sudo apt-get install libboost-all-dev
 > git clone https://github.com/danielcardeenas/AudioStego.git
 > cd AudioStego
 > mkdir build
