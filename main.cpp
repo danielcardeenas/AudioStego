@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
     if (argc < 2)
     {
-        cout << "Where are my the parameters mate?" << endl;
+        cout << "Where are my parameters mate?" << endl;
         cout << "To hide a string:  ./HideMeIn [input_file] \"'string message'\" (Single quotation inside double quotation)" << endl;
         cout << "To hide a file:    ./HideMeIn [input_file] [file_to_hide]" << endl;
         cout << endl;
