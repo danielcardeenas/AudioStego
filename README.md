@@ -21,6 +21,8 @@ This shit needs [CMake](http://www.cmake.org/install/) to build. So download it 
 ```
 And it should create be a file named `hideme`
 
+**Note: Boost libraries need to be installed to compile**
+
 How to use
 ==========
 
