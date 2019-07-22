@@ -10,8 +10,8 @@ int main(int argc, char* argv[])
     string inputPath;
     string fileExt, inputExt;
 
-    ifstream binStremFile;
-    streampos binFileSize;
+    FILE* binStremFile;
+    unsigned long binFileSize;
     vector<char> msgBuffer;
 
     int mode = 1; // hide
@@ -69,9 +69,11 @@ int main(int argc, char* argv[])
                 // Get files extension
                 fileExt = GetFileExtension(string(argv[2]));
                 inputExt = GetFileExtension(string(argv[1]));
-
-                binStremFile.open(string(argv[2]), std::ios::binary );
-                binFileSize = binStremFile.tellg();
+                
+                binStremFile = fopen(string(argv[2]), "rb")
+                fseek(binStremFile, 0, SEEK_END);
+	            binFileSize = ftell(binStremFile);
+	            rewind(binStremFile);
                 msgBuffer.reserve(binFileSize); // Reserve the amount of the file size of memory to the vector
             }
         }
@@ -89,17 +91,25 @@ int main(int argc, char* argv[])
     cout << "Doing it boss! " << endl;
 
     // Get input file
-    ifstream input(inputPath, std::ios::binary );
-    if(!input.is_open())
+    
+    FILE* pFile;
+    pFile = fopen(inputPath, "rb");
+    
+    if(!pFile)
     {
         cout << "Unable to open the file given" << endl;
         return 0;
     }
 
     // Copy the song into a buffer and closing it because we don't want to touch that
-    vector<char> buffer(
-                    (istreambuf_iterator<char>(input)),
-                    (istreambuf_iterator<char>()));
+    unsigned long fsize;
+	fseek(pFile, 0, SEEK_END);
+	fsize = ftell(pFile);
+	rewind(pFile);
+    
+    vector<char> buffer = vector<char>(fsize);
+    fread(&buffer[0], 1, fsize, pFile);
+    fclose(pFile);
 
     if (mode == 3)
     {
@@ -108,15 +118,11 @@ int main(int argc, char* argv[])
          * Assign the binary file into a vector to play with him later and close the file.
          */
 
-        msgBuffer.assign(
-                (istreambuf_iterator<char>(binStremFile)),
-                (istreambuf_iterator<char>()));
-
-        binStremFile.close();
+        msgBuffer = vector<char>(binFileSize);
+        fread(&msgBuffer[0], 1, binFileSize, binStremFile);
+        fclose(binStremFile);
     }
-
-    input.close();
-
+    
     /**
     * mode:
     * 1 -> hide a string
