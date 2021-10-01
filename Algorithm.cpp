@@ -224,7 +224,6 @@ int FindHiddenTextInWave(vector<char>& buffer, CustomHeader& customHeader)
     int lastPos = customHeader.GetLastPosition();
 
     int n = 0;
-    int pos = 0;
     vector<char>::iterator tempIterator;
     // Since the actual data of the wav starts at byte 44. Everything above is just header things that we don't care atm
     for (vector<char>::iterator it = buffer.begin() + WAV_HEADER + lastPos + MY_HEADER_MODULE + START_SPACE;
@@ -250,7 +249,7 @@ int FindHiddenTextInWave(vector<char>& buffer, CustomHeader& customHeader)
 
                         if (*tempIterator == 59){
                             // End of message reached
-                            cout << "Message recovered size: " << pos << " bytes" << endl;
+                            cout << "Message recovered size: " << msgText.length() << " bytes" << endl;
 
                             // Output text
                             cout << "Message: " << msgText.c_str() << endl;
@@ -260,9 +259,8 @@ int FindHiddenTextInWave(vector<char>& buffer, CustomHeader& customHeader)
                 }
             }
 
-            msgText[pos] = *it;
+            msgText.push_back(*it);
             //cout << msgText[pos] << endl; // Uncomment this if yuo want to see the characters being read
-            pos++;
 
         }
         n++;
