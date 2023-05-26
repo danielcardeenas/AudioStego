@@ -8,7 +8,7 @@ It actually supports only .mp3 and .wav files as inputs, but you can hide whatev
 
 Build
 ==========
-This shit needs [CMake](http://www.cmake.org/install/) to build. So download it before compiling. 
+This project uses [CMake](http://www.cmake.org/install/) to build. So download it before compiling. 
 
 ```sh
 > sudo apt-get install libboost-all-dev
